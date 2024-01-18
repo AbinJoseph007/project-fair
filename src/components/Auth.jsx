@@ -1,12 +1,15 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { Form, Row } from 'react-bootstrap'
 import { Link, useNavigate } from 'react-router-dom'
 import gif from '../images/giphy-unscreen.gif'
 import { loginAPI, registerAPI } from '../services/allAPI'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { isAuthTokenContext } from '../contexts/Contexts'
 
 function Auth({ register }) {
+    const { isAuthToken , setIsAuthToken}= useContext(isAuthTokenContext)
+
     //1 create a state to hold the value of user registration details
     const [userData , setUserData] = useState({
         username:"",
@@ -71,6 +74,7 @@ function Auth({ register }) {
             if(result.status === 200){
                  //  alert
                  toast.success('login successfull')
+                 setIsAuthToken(true)
                 // store data 
                 sessionStorage.setItem("existingUser" ,JSON.stringify(result.data.existingUser))
                 sessionStorage.setItem("token" ,result.data.token)
@@ -134,7 +138,7 @@ function Auth({ register }) {
                                         <div onClick={handleRegister} className='d-flex align-items-center flex-column '>
                                             <button className='btn btn-warning rounded mb-3'>
                                               Register
-                                            </button>
+                                            </button> 
                                           <p className='text-danger'>Already a user? Click here to <Link  style={{textDecoration:"none", color:"black"}} to={'/login'}>login</Link></p>
 
                                         </div>:

@@ -1,9 +1,19 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import Container from 'react-bootstrap/Container';
 import Navbar from 'react-bootstrap/Navbar';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { isAuthTokenContext } from '../contexts/Contexts';
 
 function Header({dashborad}) {
+  const {isAuthToken , setIsAuthToken} = useContext(isAuthTokenContext)
+   const navigate = useNavigate()
+
+  const handleLogout = ()=>{
+    sessionStorage.removeItem("token")
+    sessionStorage.removeItem("existingUser")
+    setIsAuthToken(false)
+    navigate('/')
+  }
   return (
     <>
     <Navbar style={{backgroundColor:"purple"}}>
@@ -16,7 +26,7 @@ function Header({dashborad}) {
           </Navbar.Brand>
           {
             dashborad &&
-            <button className='btn btn-warning'>logOut<i class="fa-solid fa-power-off ms-2"></i></button>
+            <button onClick={handleLogout} className='btn btn-warning'>logOut<i class="fa-solid fa-power-off ms-2"></i></button>
           }
         </Container>
       </Navbar>

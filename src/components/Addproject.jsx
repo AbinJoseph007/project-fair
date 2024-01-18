@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useContext, useEffect } from 'react'
 import { useState } from 'react';
 import { Col, Row } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
@@ -8,9 +8,13 @@ import { addProjectAPI } from '../services/allAPI';
 
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { addProjectResponseContext } from '../contexts/Contexts';
 
 
 function Addproject() {
+    const {addProjectResponse , setAddProjectResponse} =useContext(addProjectResponseContext)
+
+
     //    to hold the value of the image url
     const [preview, setPreview] = useState("")
 
@@ -101,6 +105,7 @@ function Addproject() {
                     console.log(result.data);
                     toast.success('project added successfully')
                     handleClose()
+                    setAddProjectResponse(result.data)
                 }
                 else{
                     console.log(result.response.data);
