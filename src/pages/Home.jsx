@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { Col, Row } from 'react-bootstrap'
-import titleimg from '../images/google.png'
+import titleimage from '../images/What-Is-Information-Technology-Project-Management-removebg-preview.png'
 import Projectcard from '../components/Projectcard'
 import { Link } from 'react-router-dom'
 import { homeProjectAPI } from '../services/allAPI'
@@ -44,7 +44,7 @@ function Home() {
                 <Link to={'/login'} className='btn btn-success rounded'>Get started<i className='fa-solid fa-arrow-right ms-3'></i></Link>}
             </Col>
             <Col sm={12} md={6}>
-              <img src={titleimg} alt="" className='w-100 p-5' style={{ marginTop: "80px" }} />
+              <img src={titleimage} alt="" className='w-100 p-5' style={{ marginTop: "100px" }} />
             </Col>
           </Row>
         </div>
