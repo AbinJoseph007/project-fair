@@ -5,7 +5,6 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import abinj from '../images/abin.jpg'
 import { addProjectAPI } from '../services/allAPI';
-
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { addProjectResponseContext } from '../contexts/Contexts';
@@ -17,7 +16,6 @@ function Addproject() {
 
     //    to hold the value of the image url
     const [preview, setPreview] = useState("")
-
 
     const [projectDetails, setProjectDetails] = useState({
         title: "",
@@ -99,7 +97,7 @@ function Addproject() {
                     "Authorization": `Bearer ${token}`
                 }
 
-                const result = await addProjectAPI(reqBody, reqHeader)
+              const result = await addProjectAPI(reqBody, reqHeader)
                 console.log(result);
                 if(result.status === 200){
                     console.log(result.data);
