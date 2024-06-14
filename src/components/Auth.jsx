@@ -41,7 +41,7 @@ function Auth({ register }) {
             if(result.status === 200){
                 toast.success(`${result.data.username} is successfully registered`)
                 //6 for empty register page after registering and navigate to login page
-                setUserData({
+                setUserData({ 
                     username:"",
                     email:"",
                     password:"" 

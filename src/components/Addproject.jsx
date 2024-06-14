@@ -98,7 +98,7 @@ function Addproject() {
                 }
 
               const result = await addProjectAPI(reqBody, reqHeader)
-                console.log(result);
+                console.log(result); 
                 if(result.status === 200){
                     console.log(result.data);
                     toast.success('project added successfully')
@@ -123,7 +123,7 @@ function Addproject() {
             <Modal
                 show={show}
                 onHide={handleClose}
-                backdrop="static"
+                backdrop="static" 
                 keyboard={false}
                 centered
             >

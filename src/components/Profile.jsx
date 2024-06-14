@@ -10,6 +10,9 @@ import { editProfileAPI } from '../services/allAPI';
 function Profile() {
   const [open, setOpen] = useState(false);
 
+  const [isUpdate, setIsUpdate] = useState(false)
+
+
   const [userProfile, setUserProfile] = useState({
     username: "",
     email: "",
@@ -19,7 +22,6 @@ function Profile() {
     Profile: ""
   })
 
-  const [isUpdate , setIsUpdate] =useState(false)
 
   const [existingImage, setExistingImage] = useState("")
   const [preview, setPreview] = useState("")
@@ -35,9 +37,11 @@ function Profile() {
 
   useEffect(() => {
     if (userProfile.Profile) {
+
+      console.log(URL.createObjectURL(userProfile.Profile));
       setPreview(URL.createObjectURL(userProfile.Profile))
 
-    }
+  }
     else {
       setPreview("")
     }
@@ -56,45 +60,45 @@ function Profile() {
       reqBody.append("github", github)
       reqBody.append("linkedin", linkedin)
       preview ? reqBody.append("profile", Profile) : reqBody.append("profile", existingImage)
-    
-    const token = sessionStorage.getItem("token")
 
-    if (preview) {
-      const reqHeader = {
-        "Content-Type": "multipart/form-data",
-        "Authorization": `Bearer ${token}`
-      }
-      const result = await editProfileAPI(reqBody, reqHeader)
-      console.log(result);
-      if (result.status === 200) {
-        toast.success('profile updated successfully')
-        sessionStorage.setItem("existingUser", JSON.stringify(result.data))
-       setIsUpdate(true)
+      const token = sessionStorage.getItem("token")
 
+      if (preview) {
+        const reqHeader = {
+          "Content-Type": "multipart/form-data",
+          "Authorization": `Bearer ${token}`
+        }
+        const result = await editProfileAPI(reqBody, reqHeader)
+        console.log(result);
+        if (result.status === 200) {
+          toast.success('profile updated successfully')
+          sessionStorage.setItem("existingUser", JSON.stringify(result.data))
+          setIsUpdate(true)
+
+        }
+        else {
+          console.log(result.response.data);
+        }
       }
       else {
-        console.log(result.response.data);
-      }
-    }
-    else {
-      const reqHeader = {
-        "Content-Type": "application/json",
-        "Authorization": `Bearer ${token}`
-      }
-      const result = await editProfileAPI(reqBody, reqHeader)
+        const reqHeader = {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${token}`
+        }
+        const result = await editProfileAPI(reqBody, reqHeader)
 
-      if (result.status === 200) {
-        toast.success('profile updated successfully')
-        sessionStorage.setItem("existingUser", JSON.stringify(result.data))
-      
-      setIsUpdate(true)
-      }
-      else {
-        console.log(result.response.data);
+        if (result.status === 200) {
+          toast.success('profile updated successfully')
+          sessionStorage.setItem("existingUser", JSON.stringify(result.data))
+
+          setIsUpdate(true)
+        }
+        else {
+          console.log(result.response.data);
+        }
       }
     }
   }
-}
 
 
   return (
@@ -105,9 +109,18 @@ function Profile() {
       </div>
       <Collapse in={open}>
         <div className='row justify-content-center mt-4'>
-          <label htmlFor="profile" className=''>
-            <input id='profile' type="file" style={{ display: "none" }} onChange={(e) => setUserProfile({ ...userProfile, Profile: e.target.files[0] })} />
-            {existingImage == "" ? <img src={preview ? preview : "https://images.ctfassets.net/vztl6s0hp3ro/2Zg9Mth4qC5EGGWHoJIy9T/3f0dbdf8884231a3e9e7998c514cc1fa/Unleash-employee-potential-with-personal-professional-development-examples.jpg"} alt="no image" width={'200px'} height={'200px'} className='rounded-circle' /> : <img src={preview ? preview : `${BASE_URL}/uploads/${existingImage}`} alt="no image" width={'200px'} height={'200px'} className='rounded-circle' />}
+          <label htmlFor="profile" >
+            <input id="profile" type="file" style={{ display: "none" }} onChange={(e) => setUserProfile({ ...userProfile, Profile: e.target.files[0] })} />
+            {existingImage == "" ? <img
+              src={preview ? preview : "https://cdn-icons-png.flaticon.com/512/3135/3135823.png"}
+              alt="no image" className="rounded circle"
+              style={{ width: "200px", height: "200px", marginLeft: "70px" }}
+            /> : <img
+              src={preview ? preview : `${BASE_URL}/uploads/${existingImage}`}
+              alt="no image"
+              style={{ width: "200px", height: "200px", marginLeft: "70px", borderRadius: "50%" }}
+            />
+            }
           </label>
           <div className="mb-3 mt-3">
             <input type="text" placeholder='Git-hub' className='form-control' value={userProfile.github} onChange={(e) => setUserProfile({ ...userProfile, github: e.target.value })} />

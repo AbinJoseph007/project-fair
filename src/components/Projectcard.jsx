@@ -32,8 +32,8 @@ function Projectcard({project}) {
                     <Modal.Title>{project.title}</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    <Row style={{ height: "150px" }}>
-                        <Col md={6}>
+                    <Row style={{ height: "100%" }}>
+                        <Col md={6} className='mb-4'>
                             <img src={project?`${BASE_URL}/uploads/${project.projectImage}`:video} width={'100%'} alt="" />
                         </Col>
                         <Col md={6}>

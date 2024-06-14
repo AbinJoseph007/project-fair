@@ -44,7 +44,7 @@ function Home() {
                 <Link to={'/login'} className='btn btn-success rounded'>Get started<i className='fa-solid fa-arrow-right ms-3'></i></Link>}
             </Col>
             <Col sm={12} md={6}>
-              <img src={titleimage} alt="" className='w-100 p-5' style={{ marginTop: "100px" }} />
+              <img src={titleimage} alt="" className='w-80 p-5' style={{ marginTop: "100px" }} />
             </Col>
           </Row>
         </div>
